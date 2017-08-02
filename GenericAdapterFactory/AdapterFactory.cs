@@ -18,7 +18,7 @@ namespace GenericAdapterFactory
 			
 			if (_adapters.ContainsKey(typeof(TAdapter)))
 			{
-				throw new InvalidOperationException($"Adapt function for {typeof(TAdapter)} is already defined");
+				throw new InvalidOperationException($"Adapter {typeof(TAdapter)} is already defined");
 			}
 			_adapters.Add(typeof(TAdapter), adapter);
 		}
@@ -28,7 +28,7 @@ namespace GenericAdapterFactory
 			object value;
 			if (!_adapters.TryGetValue(typeof(TAdapter), out value))
 			{
-				throw new InvalidOperationException($"Adapt function for {typeof(TAdapter)} is not defined");
+				throw new InvalidOperationException($"Adapter {typeof(TAdapter)} is not defined");
 			}
 			return (TAdapter) value;
 		}
