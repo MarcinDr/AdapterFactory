@@ -1,0 +1,6 @@
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/bin/Debug/GenericAdapterFactory.dll
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/bin/Debug/GenericAdapterFactory.pdb
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/obj/Debug/GenericAdapterFactory.csprojResolveAssemblyReference.cache
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/obj/Debug/GenericAdapterFactory.csproj.CoreCompileInputs.cache
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/obj/Debug/GenericAdapterFactory.dll
+/Users/mdruzgala/Documents/repos/GenericAdapterFactory/GenericAdapterFactory/obj/Debug/GenericAdapterFactory.pdb
