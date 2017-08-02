@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using GenericAdapterFactory.Interfaces;
 
 namespace GenericAdapterFactory
@@ -11,9 +12,9 @@ namespace GenericAdapterFactory
 		
 		public void RegisterAdapter<TAdapter>(TAdapter adapter)
 		{
-			if (!typeof(TAdapter).IsAssignableFrom(typeof(IGenericAdapter<>)))
+			if(!ValidateAdapter(typeof(TAdapter)))
 			{
-				throw new InvalidOperationException($"Adapter {typeof(TAdapter)} is not assignable from IGenericAdapter");
+				throw new InvalidOperationException($"Adapter {typeof(TAdapter)} does not implement {typeof(IGenericAdapter<>)}");
 			}
 			
 			if (_adapters.ContainsKey(typeof(TAdapter)))
@@ -36,6 +37,15 @@ namespace GenericAdapterFactory
 		public bool RemoveAdapter<TAdapter>()
 		{
 			return _adapters.Remove(typeof(TAdapter));
+		}
+
+		private static bool ValidateAdapter(Type adapterType)
+		{
+			if (adapterType.IsInterface)
+			{
+				return adapterType.IsGenericType && adapterType.GetGenericTypeDefinition() == typeof(IGenericAdapter<>);
+			}
+			return adapterType.GetInterfaces().Any(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IGenericAdapter<>));
 		}
 	}
 }
