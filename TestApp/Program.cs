@@ -10,7 +10,7 @@ namespace TestApp
 		
 		public static void Main(string[] args)
 		{
-			var adaptersFactory = new AdapterFactory();
+			IAdapterFactory adaptersFactory = new AdapterFactory();
 			
 			IGenericAdapter<IPerson> genericAdapter = new GenericAdapter<IPerson>();
 			genericAdapter.RegisterAdaptFunction<ExternalPersonEntity>(entity =>
@@ -25,14 +25,15 @@ namespace TestApp
 
 			var testData = PrepareTestData();
 
-			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.ext));
-			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.db));
-			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.serv));
+			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.Ext));
+			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.Db));
+			ApiService.RegisterPerson(adaptersFactory.ResolveAdapter<IGenericAdapter<IPerson>>().Adapt(testData.Serv));
+			ApiService.RegisterPerson(adaptersFactory.Adapt<IPerson, ExternalPersonEntity>(testData.Ext));
 
 			Console.ReadLine();
 		}
 
-		private static (ExternalPersonEntity ext, DatabasePersonEntity db, ServicePersonEntity serv) PrepareTestData()
+		private static (ExternalPersonEntity Ext, DatabasePersonEntity Db, ServicePersonEntity Serv) PrepareTestData()
 		{
 			var external = new ExternalPersonEntity("John Doe");
 			var database = new DatabasePersonEntity("John", "Doe");

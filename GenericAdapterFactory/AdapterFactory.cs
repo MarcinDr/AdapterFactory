@@ -39,6 +39,20 @@ namespace GenericAdapterFactory
 			return _adapters.Remove(typeof(TAdapter));
 		}
 
+		public TResult Adapt<TResult, TAdaptee>(TAdaptee adaptee) where TResult : class
+		{
+			foreach (var adapter in _adapters)
+			{
+				var genericTypeArguments = adapter.Key.GenericTypeArguments;
+				if (genericTypeArguments.Any() && genericTypeArguments.First() == typeof(TResult))
+				{
+					var genericAdapter = (IGenericAdapter<TResult>)adapter.Value;
+					return genericAdapter.Adapt(adaptee);
+				}
+			}
+			throw new InvalidOperationException($"Adapter for type {typeof(TResult)} is not defined.");
+		}
+
 		private static bool ValidateAdapter(Type adapterType)
 		{
 			if (adapterType.IsInterface)
